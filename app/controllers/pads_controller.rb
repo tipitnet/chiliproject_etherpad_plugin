@@ -5,6 +5,7 @@ class PadsController < ApplicationController
   def show
     @pad_host = ENV['PAD_HOST']
     pad_key = ENV['PAD_KEY']
+    domain = ENV['PAD_DOMAIN']
     session[:ep_sessions] = {} if session[:ep_sessions].nil?
     ether = EtherpadLite.connect(@pad_host, pad_key)
     # Get the EtherpadLite Group and Pad by id
@@ -22,7 +23,7 @@ class PadsController < ApplicationController
     end
     session[:ep_sessions][@group.id] = sess.id
     # Set the EtherpadLite session cookie. This will automatically be picked up by the jQuery plugin's iframe.
-    cookies[:sessionID] = {:value => sess.id, :domain => ".tipit.net"}
+    cookies[:sessionID] = {:value => sess.id, :domain => domain}
   end
 
   private
