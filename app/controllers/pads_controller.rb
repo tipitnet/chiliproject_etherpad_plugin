@@ -1,7 +1,5 @@
 class PadsController < ApplicationController
 
-  #menu_item :pads
-
   before_filter :find_project
 
   def show
