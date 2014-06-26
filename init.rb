@@ -9,11 +9,12 @@ Redmine::Plugin.register :chiliproject_etherpad do
 end
 
 Redmine::MenuManager.map :project_menu do |menu|
-  menu.push(:pad, { :controller => 'pads', :action => 'show' },{:param => :project_id})
+  menu.push(:pads, { :controller => 'pads', :action => 'index' },{:param => :project_id})
 end
 
 Redmine::AccessControl.map do |map|
   map.project_module :documents do |map|
-    map.permission :access_pad, {:pads => [:show]}
+    map.permission :access_pad, {:pads => [:index, :show]}
+    map.permission :create_pad, {:pads => [:new]}
   end
 end

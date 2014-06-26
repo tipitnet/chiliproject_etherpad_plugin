@@ -1,0 +1,33 @@
+<div class="contextual">
+  <%= link_to_if_authorized l(:label_pad_new),
+                            {:controller => 'pads', :action => 'new', :project_id => @project},
+                            :class => 'icon icon-add',
+                            :onclick => 'Element.show("add-pad"); Form.Element.focus("pad_title"); return false;' %>
+</div>
+
+<div id="add-pad" style="display:none;">
+  <h2><%=l(:label_pad_new)%></h2>
+  <% form_tag({:controller => 'pads', :action => 'new', :project_id => @project}, :class => "tabular") do %>
+
+      <%= error_messages_for 'document' %>
+      <div class="box">
+
+        <p><label for="pad_title"><%=l(:field_title)%> <span class="required">*</span></label>
+          <%= text_field 'pad', 'title', :size => 60 %></p>
+
+      </div>
+
+      <%= submit_tag l(:button_create) %>
+      <%= link_to l(:button_cancel), "#", :onclick => 'Element.hide("add-pad")' %>
+  <% end %>
+</div>
+
+<h2><%=l(:label_pad_plural)%></h2>
+
+<ul>
+<% (@pads.sort_by {|pad| pad.name}).each do |pad| %>
+      <li>
+        <a href="/projects/<%= @project.identifier %>/pads/<%= pad.name %>"><%= pad.name %></a>
+      </li>
+<% end %>
+</ul>

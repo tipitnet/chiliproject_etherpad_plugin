@@ -1,0 +1,4 @@
+en:
+  label_pad_plural: "Pads"
+  label_pad_new: "New pad"
+  error_pad_exists: "%{pad_title} already exists."

@@ -2,6 +2,33 @@ class PadsController < ApplicationController
 
   before_filter :find_project
 
+  def index
+    @pad_host = ENV['PAD_HOST']
+    pad_key = ENV['PAD_KEY']
+    domain = ENV['PAD_DOMAIN']
+    session[:ep_sessions] = {} if session[:ep_sessions].nil?
+    ether = EtherpadLite.connect(@pad_host, pad_key)
+    group = ether.group(@project.identifier)
+    @pads = group.pads
+  end
+
+  def new
+    @pad_host = ENV['PAD_HOST']
+    pad_key = ENV['PAD_KEY']
+    pad_title = params[:pad][:title]
+    session[:ep_sessions] = {} if session[:ep_sessions].nil?
+    ether = EtherpadLite.connect(@pad_host, pad_key)
+    @group = ether.group(@project.identifier)
+    if @group.pads.select { |p| p.name == pad_title }.size == 0
+      @pad = @group.pad(pad_title)
+      flash[:notice] = l(:notice_successful_create)
+    else
+      flash[:error] = l(:error_pad_exists, :pad_title => pad_title)
+    end
+    redirect_to :action => :index, :project_id => @project
+  end
+
+
   def show
     @pad_host = ENV['PAD_HOST']
     pad_key = ENV['PAD_KEY']
@@ -10,7 +37,7 @@ class PadsController < ApplicationController
     ether = EtherpadLite.connect(@pad_host, pad_key)
     # Get the EtherpadLite Group and Pad by id
     @group = ether.group(@project.identifier)
-    @target_pad = "#{@group.id}$defaultpad"
+    @target_pad = params[:pad_id]
     @pad = @group.pad(@target_pad)
     @user_name = User.current.name
     # Map the user to an EtherpadLite Author
