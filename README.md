@@ -3,7 +3,7 @@ Chiliproject Etherpad plugin
 
 This plugin allow to integrate Etherpad into Chiliproject.
 
-How it works
+## How it works
 
 On the server side, it adds a new controller that takes care of managing users integration, groups and pads creation. To do this, it uses the etherpad-lite gem. Each project on Chili side is associated with a group on Etherpad.
 On the client side, the integration is handled by the jQuery plugin., which generates an iframe pointing to Etherpad instance.
