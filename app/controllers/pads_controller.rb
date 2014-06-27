@@ -49,6 +49,7 @@ class PadsController < ApplicationController
     @group = ether.group(@project.identifier)
     @target_pad = params[:pad_id]
     @pad = @group.pad(@target_pad)
+    @target_pad = "#{@group.id}$#{@pad.name}"
     @user_name = User.current.name
     # Map the user to an EtherpadLite Author
     author = ether.author("my_app_user_#{User.current.id}", :name => User.current.name)
