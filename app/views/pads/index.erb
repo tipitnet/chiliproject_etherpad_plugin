@@ -22,6 +22,9 @@
 <% (@pads.sort_by {|pad| pad.name}).each do |pad| %>
       <li>
         <a href="/projects/<%= @project.identifier %>/pads/<%= pad.name %>"><%= pad.name %></a>
+        <% if (pad.authors.size > 0)%>
+            last modification by <%= pad.authors.last.name %> at <%= Time.at(pad.last_edited/1000) %>
+        <% end %>
       </li>
 <% end %>
 </ul>

@@ -7,7 +7,7 @@
 
 <script>
     var userName = '<%=@user_name %>';
-    var projectId = '<%=@target_pad %>';
+    var padId = '<%=@pad_id %>';
     var padHost = '<%=@pad_host %>';
-    jQuery('#pad').pad({'padId':projectId,'width':'100%', 'height':'700px', 'userName': userName, 'host': padHost });
+    jQuery('#pad').pad({'padId':padId,'width':'100%', 'height':'700px', 'userName': userName, 'host': padHost });
 </script>
