@@ -8,13 +8,19 @@ Redmine::Plugin.register :chiliproject_etherpad do
   url 'http://www.tipit.net'
 end
 
-Redmine::MenuManager.map :project_menu do |menu|
-  menu.push(:pads, { :controller => 'pads', :action => 'index' },{:param => :project_id})
+Redmine::AccessControl.map do |map|
+  map.project_module :pads do |map|
+    map.permission :access_pads, {:pads => [:index, :show]}
+    map.permission :create_pads, {:pads => [:new]}
+  end
 end
 
-Redmine::AccessControl.map do |map|
-  map.project_module :documents do |map|
-    map.permission :access_pad, {:pads => [:index, :show]}
-    map.permission :create_pad, {:pads => [:new]}
-  end
+Redmine::MenuManager.map :project_menu do |menu|
+  menu.push(:pads, { :controller => 'pads', :action => 'index' },{:param => :project_id})
+  menu.push(:new_pad, { :controller => 'pads', :action => 'new' }, {
+      :param => :project_id,
+      :caption => :label_pad_new,
+      :parent => :pads,
+      :if => Proc.new {|p| User.current.allowed_to?(:create_pads, p) }
+  })
 end

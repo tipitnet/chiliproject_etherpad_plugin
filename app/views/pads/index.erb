@@ -9,13 +9,7 @@
   <h2><%=l(:label_pad_new)%></h2>
   <% form_tag({:controller => 'pads', :action => 'new', :project_id => @project}, :class => "tabular") do %>
 
-      <%= error_messages_for 'document' %>
-      <div class="box">
-
-        <p><label for="pad_title"><%=l(:field_title)%> <span class="required">*</span></label>
-          <%= text_field 'pad', 'title', :size => 60 %></p>
-
-      </div>
+      <%= render :partial => 'pads/form' %>
 
       <%= submit_tag l(:button_create) %>
       <%= link_to l(:button_cancel), "#", :onclick => 'Element.hide("add-pad")' %>
