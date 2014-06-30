@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
       pad_actions.connect 'projects/:project_id/pads/:pad_id', :action => 'show'
     end
     pad_routes.with_options :conditions => {:method => :post} do |pad_actions|
-      #pad_actions.connect 'projects/:project_id/pads', :action => 'new'
       pad_actions.connect 'projects/:project_id/pads/new', :action => 'new'
+      pad_actions.connect 'projects/:project_id/pads/:pad_id/destroy', :action => 'destroy'
     end
   end
 

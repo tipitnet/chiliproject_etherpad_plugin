@@ -40,6 +40,15 @@ class PadsController < ApplicationController
     end
   end
 
+  def destroy
+    @pad_host = self.pad_host
+    session[:ep_sessions] = {} if session[:ep_sessions].nil?
+    ether = EtherpadLite.connect(@pad_host, self.pad_key)
+    group = ether.group(@project.identifier)
+    pad = group.pad(params[:pad_id])
+    pad.delete
+    redirect_to :action => :index, :project_id => @project
+  end
 
   def show
     @pad_host = self.pad_host
