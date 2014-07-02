@@ -17,7 +17,7 @@ It is a regular Chiliproject plugin. All that is needed is to just drop the plug
 * PAD_KEY: your Etherpad API key
 * PAD_DOMAIN: the main domain under your Chiliproject and Etherpad instances that are running. 
   * This is a restriction of the plugin because Chiliproject needs to run in the same main domain as your Etherpad instance. 
-  * If your Etherpad instance is running under *etherpad.yourdomain.com* and your Chiliproject instance is running under *chiliproject.your.com*, then PAD_DOMAIN should be set to ".yourdomain.com"
+  * If your Etherpad instance is running under *etherpad.yourdomain.com* and your Chiliproject instance is also running under *chiliproject.yourdomain.com*, then PAD_DOMAIN should be set to ".yourdomain.com"
 
 ## Etherpad configuration
 
