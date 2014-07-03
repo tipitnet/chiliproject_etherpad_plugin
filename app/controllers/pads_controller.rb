@@ -32,11 +32,11 @@ class PadsController < ApplicationController
       @group = ether.group(@project.identifier)
       if @group.pads.select { |p| p.name == pad_title }.size == 0
         @pad = @group.pad(pad_title)
-        flash[:notice] = l(:notice_successful_create)
+        redirect_to :action => :show, :pad_id => pad_title
      else
         flash[:error] = l(:error_pad_exists, :pad_title => pad_title)
+        redirect_to :action => :index, :project_id => @project
       end
-      redirect_to :action => :index, :project_id => @project
     end
   end
 
