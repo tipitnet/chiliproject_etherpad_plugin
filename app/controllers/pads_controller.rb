@@ -40,6 +40,28 @@ class PadsController < ApplicationController
     end
   end
 
+  def edit
+    # EtherpadLite.connect(self.pad_host, self.pad_key).client.movePad(sourceID:'nuevopad1', destinationID:'renombrado')
+    if request.post?
+      @pad_host = self.pad_host
+      pad_id = params[:pad_id]
+      new_pad_name = params[:pad][:title]
+      session[:ep_sessions] = {} if session[:ep_sessions].nil?
+      ether = EtherpadLite.connect(@pad_host, self.pad_key)
+      client = ether.client
+      @group = ether.group(@project.identifier)
+      @pad = @group.pad(params[:pad_id])
+      if @group.pads.select { |p| p.name == new_pad_name }.size == 0
+        @new_pad = @group.pad(new_pad_name)
+        @pad = client.movePad(sourceID:@pad.id, destinationID: @new_pad.id, force: true)
+        redirect_to :action => :index, :project_id => @project
+      else
+        flash[:error] = l(:error_pad_exists, :pad_title => pad_title)
+        redirect_to :action => :index, :project_id => @project
+      end
+    end
+  end
+
   def destroy
     @pad_host = self.pad_host
     session[:ep_sessions] = {} if session[:ep_sessions].nil?

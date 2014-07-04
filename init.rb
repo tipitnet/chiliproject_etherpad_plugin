@@ -11,7 +11,7 @@ end
 Redmine::AccessControl.map do |map|
   map.project_module :pads do |map|
     map.permission :access_pads, {:pads => [:index, :show]}
-    map.permission :create_pads, {:pads => [:new, :destroy]}
+    map.permission :create_pads, {:pads => [:new, :edit, :destroy]}
   end
 end
 

@@ -1,0 +1,8 @@
+<h2><%=l(:label_document)%></h2>
+
+<% form_tag({:controller => 'pads', :action => 'edit', :project_id => @project}, :class => "tabular") do %>
+    <%= render :partial => 'pads/form' %>
+    <%= submit_tag l(:button_save) %>
+<% end %>
+
+

@@ -26,7 +26,9 @@
             last modification by <%= pad.authors.last.name %> at <%= Time.at(pad.last_edited/1000) %>
         <% end %>
         <% if User.current.allowed_to?(:create_pads, @project) %>
-            | <%= link_to l(:button_delete), "/projects/" + @project.identifier + "/pads/" + pad.name + "/destroy" , :confirm => l(:text_are_you_sure), :method => :post, :class => 'icon icon-del' %>
+            |
+            <%= link_to l(:button_edit), "/projects/" + @project.identifier + "/pads/" + pad.name + "/edit", :method => :get, :class => 'icon icon-edit' %>
+            <%= link_to l(:button_delete), "/projects/" + @project.identifier + "/pads/" + pad.name + "/destroy" , :confirm => l(:text_are_you_sure), :method => :post, :class => 'icon icon-del' %>
         <% end %>
       </li>
 <% end %>
