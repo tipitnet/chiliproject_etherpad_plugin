@@ -23,4 +23,12 @@ Redmine::MenuManager.map :project_menu do |menu|
       :parent => :pads,
       :if => Proc.new {|p| User.current.allowed_to?(:create_pads, p) }
   })
+  menu.push(:view_pads, { :controller => 'pads', :action => 'index' }, {
+      :param => :project_id,
+      #:caption => :label_pad_new,
+      :parent => :pads
+      #:if => Proc.new {|p| User.current.allowed_to?(:create_pads, p)
+
+  })
+
 end
